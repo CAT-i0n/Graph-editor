@@ -153,9 +153,22 @@ def toTree():
 @run.command("get_length")
 @click.option('-s', '--start')
 @click.option('-e', '--end')
-def toTree(start, end):
+def getLength(start, end):
     global g
     print(g.getLength(start, end))
+
+@run.command("print_path")
+@click.option('-s', '--start')
+@click.option('-e', '--end')
+def printAllPath(start, end):
+    global g
+    allPath = g.getAllPath(start, end)
+    for path in allPath:
+        for node in path:
+            print(node, end=' ')
+            if node != path[-1]:
+                print('->', end=' ')
+        print()
 
 
 def output(graph):

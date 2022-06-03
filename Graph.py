@@ -348,6 +348,35 @@ class Graph:
                         return length
         return -1
 
+    stack = []
+    visit = []
+    def dfs(self, v1, v2, allPath):
+        self.stack.append(v1)
+        if v1 == v2:
+            allPath.append(self.stack)
+            self.stack = self.stack[:-1]
+            return
+        for i in range(len(self.matrix)):
+            if self.matrix[v1][i] == 1 and self.visit[i] == 0:
+                self.visit[i] = 1
+                self.dfs(i, v2, allPath)
+                self.visit[i] = 0
+        self.stack = self.stack[:-1]
+
+    def getAllPath(self, v1, v2):
+        allPath = []
+        fNode = sNode = -1
+        self.visit = [0]*len(self.nodes)
+        for i, v in enumerate(self.nodes):
+            if v.label == v1:
+                fNode = i
+            if v.label == v2:
+                sNode = i
+        self.dfs(fNode, sNode, allPath)
+        for path in allPath:
+            for node in path:
+                node = self.nodes[node].label
+        return allPath
 
 
 
